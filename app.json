@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "pet-life-app",
-    "slug": "pet-life-app",
+    "name": "Pet Life",
+    "slug": "pet-life",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "petlifeapp",
-    "userInterfaceStyle": "automatic",
+    "scheme": "petlife",
+    "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
     },

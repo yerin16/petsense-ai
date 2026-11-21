@@ -4,7 +4,11 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
+
+import { usePetStore } from '@/src/store/usePetStore';
+
+const noopSubscribe = () => () => {};
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -25,11 +29,23 @@ export default function RootLayout() {
     if (error) throw error;
   }, [error]);
 
-  useEffect(() => {
-    if (loaded) SplashScreen.hideAsync();
-  }, [loaded]);
+  // Data lives on the device (localStorage / AsyncStorage) and dates are relative to the viewer's "today",
+  // so render only on the client after saved data has loaded. Otherwise the server-rendered HTML
+  // (server clock, seed data) won't match the browser and React throws a hydration error (#418).
+  const onClient = useSyncExternalStore(noopSubscribe, () => true, () => false);
+  const hydrated = useSyncExternalStore(
+    (cb) => usePetStore.persist.onFinishHydration(cb),
+    () => usePetStore.persist.hasHydrated(),
+    () => false,
+  );
 
-  if (!loaded) return null;
+  const ready = loaded && onClient && hydrated;
+
+  useEffect(() => {
+    if (ready) SplashScreen.hideAsync();
+  }, [ready]);
+
+  if (!ready) return null;
 
   return (
     <>

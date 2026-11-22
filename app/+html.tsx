@@ -12,6 +12,9 @@ export default function Root({ children }: { children: ReactNode }) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>PetSense AI</title>
+        {/* Icon used by iPhone "Add to Home Screen" (served from public/). */}
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="PetSense AI" />
         <ScrollViewStyleReset />
         <style dangerouslySetInnerHTML={{ __html: 'body { background-color: #F3EAF8; }' }} />
         {headNodes}

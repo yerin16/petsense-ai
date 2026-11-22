@@ -2,6 +2,8 @@
 
 Where Pet Life is headed after Maker Day 2, and what's being built now.
 
+> **Update (Nov 22):** this note is from before Maker Day 3, so its experiments and dates are out of date. The app is now **PetSense AI** and everything is built. **To run the experiments, use [EXPERIMENT_GUIDE.md](EXPERIMENT_GUIDE.md)** (participant links, session script, how to read the Sheet). Demo Day notes are in [DEMO_DAY.md](DEMO_DAY.md).
+
 ---
 
 ## 1. What we heard at Maker Day 2

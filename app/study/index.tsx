@@ -10,11 +10,10 @@ import { Button, Card, Chip, Divider, Icon, PageHeader, Screen, T } from '@/src/
 import { colors, fonts } from '@/src/ui/theme';
 
 // The order follows the story: will they open it → can they give it data → will they trust it.
-// `href` is null until that task's screen is built (trust: step 6).
 const SESSIONS: { experiment: Experiment; title: string; blurb: string; minutes: number; href: Href | null }[] = [
   { experiment: 'adoption', title: 'What would you do?', blurb: 'Read a short situation and pick your first step.', minutes: 2, href: '/study/adoption' },
   { experiment: 'logging', title: 'Log a symptom', blurb: 'Record what you notice about a dog, as you would at home.', minutes: 3, href: '/study/logging' },
-  { experiment: 'trust', title: 'Read some guidance', blurb: 'Read advice about a dog and decide what to do next.', minutes: 3, href: null },
+  { experiment: 'trust', title: 'Read some guidance', blurb: 'Read advice about a dog and decide what to do next.', minutes: 3, href: '/study/trust' },
 ];
 
 export default function StudyHome() {

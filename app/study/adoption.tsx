@@ -3,7 +3,7 @@ import { useMemo, useRef, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { versionFor } from '@/src/study/assign';
-import { INTRO, optionOrder, SCENARIOS, type AdoptionChoice } from '@/src/study/content/adoption';
+import { describeAdoption, INTRO, optionOrder, SCENARIOS, type AdoptionChoice } from '@/src/study/content/adoption';
 import { logResult, useStopwatch } from '@/src/study/log';
 import { useStudyStore } from '@/src/study/useStudyStore';
 import { Button, Card, Icon, Screen, T } from '@/src/ui/components';
@@ -49,7 +49,7 @@ export default function AdoptionTask() {
       version,
       choice,
       seconds: choiceClock.seconds(),
-      detail: JSON.stringify({ scenario: scenario.key, order: order.map((o) => o.id), intro_seconds: introClock.seconds() }),
+      detail: describeAdoption(version, order.map((o) => o.id), introClock.seconds()),
     });
     setPhase('done');
   };

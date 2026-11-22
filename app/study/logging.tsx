@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { versionFor } from '@/src/study/assign';
-import { checkAccuracy, LIMIT_SECONDS, TASK } from '@/src/study/content/logging';
+import { checkAccuracy, describeGiveUp, describeLog, TASK } from '@/src/study/content/logging';
 import { logResult, useStopwatch } from '@/src/study/log';
 import { useStudyStore } from '@/src/study/useStudyStore';
 import { SymptomForm } from '@/src/symptom/SymptomForm';
@@ -45,14 +45,14 @@ export default function LoggingTask() {
     if (submitted.current) return;
     submitted.current = true;
     const seconds = clock.seconds();
-    const { correct, checks } = checkAccuracy(entry);
+    const { correct } = checkAccuracy(entry);
     logResult({
       experiment: 'logging',
       version,
       choice: 'saved',
       seconds,
       correct,
-      detail: JSON.stringify({ ...entry, checks, errors: errors.current, within_limit: seconds <= LIMIT_SECONDS }),
+      detail: describeLog(entry, seconds, errors.current),
     });
     setResult('saved');
   };
@@ -66,7 +66,7 @@ export default function LoggingTask() {
       choice: 'gave_up',
       seconds: clock.seconds(),
       correct: false,
-      detail: JSON.stringify({ layout, errors: errors.current }),
+      detail: describeGiveUp(layout, errors.current),
     });
     setResult('gave_up');
   };

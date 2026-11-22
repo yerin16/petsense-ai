@@ -53,3 +53,10 @@ export function optionOrder(code: string) {
   }
   return list;
 }
+
+/** Plain-English summary for the Sheet's "detail" column. */
+export function describeAdoption(version: Version, order: AdoptionChoice[], introSeconds: number) {
+  const short: Record<AdoptionChoice, string> = { petsense: 'PetSense', google: 'Google', vet: 'Vet', wait: 'Wait' };
+  const names = order.map((id) => short[id]);
+  return `Scenario: ${SCENARIOS[version].key} · Button order: ${names.join(', ')} · Intro read: ${introSeconds}s`;
+}

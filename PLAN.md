@@ -118,7 +118,7 @@ No day-by-day timeline. Build in this order, because each step unblocks the next
 | 3 | **Results logging**: study screens send participant code, version (A/B), choice and time to a Google Sheet. `/study?code=P03` start page, balanced A/B table for P01–P08, rows saved on the device until the Sheet confirms them | All three experiments | ✅ Built (needs the Sheet URL) |
 | 4 | **Adoption choice screen**: new "Should I wait?" intro → scenario (A: appetite / B: activity, random) → 4 equal buttons (PetSense AI / Google / vet / wait and monitor), records the first click. Button order is shuffled per participant. After a redo, only the earliest row counts | **Experiment 1 retest (pass ≥ 5/8)**. The most existential test and the simplest screen, so it goes first and the team can start running people sooner | ✅ Built |
 | 5 | **Symptom log + save flow** in two versions (A: text-first / B: tap-to-pick layout instead of photo/voice, which the card allows), auto-timed from start to "Saved ✓". Same made-up symptom for everyone (Biscuit vomited once, ate less today); accuracy is checked automatically (B exactly, A by keywords, so the team reads A rows); "I can't finish this" logs a give-up. The form is reusable for step 7 | **Experiment 2 (logging ≤ 2 min, pass ≥ 6/8)**, blocked until this works | ✅ Built |
-| 6 | **Trust screens**: fixed scenario + scripted guidance (A: personalized with the dog's history / B: generic), then pick monitor / call vet / urgent care | **Experiment 3 (pass ≥ 6/8 safe, aligned choices)**. The team gets the scenario vet-reviewed first | |
+| 6 | **Trust screens**: fixed scenario + scripted guidance (A: personalized with the dog's history / B: generic), then pick monitor / call vet / urgent care | **Experiment 3 (pass ≥ 6/8 safe, aligned choices)**. No vet review: use a clear-cut mild scenario whose safe answer (monitor at home) matches published "when to call your vet" guidance, and cite that source. Built with VCA's "Diarrhea in Dogs" (updated Jul 2026) as the source: soft stool since this morning, eating and playful, safe answer = monitor; decision time is logged | ✅ Built |
 | 7 | **Real PetSense AI**: symptom → triage using the dog's history, red-flag rules, demo mode, presenter passcode. Home leads with "Should I wait?" | **Demo Day:** "the part we built that matters" | |
 | 8 | **Polish + demo**: demo script, recorded backup video, rehearsal | Demo Day | |
 
@@ -131,6 +131,7 @@ No day-by-day timeline. Build in this order, because each step unblocks the next
 - Daily check-in: **kept, but as secondary history** that PetSense uses.
 - Experiment results: **auto-sent to a Google Sheet**.
 - PetSense for Demo Day: **real AI + demo mode**, not scripted only ("a mockup is not a build").
+- Trust experiment: **no vet review**. The team sets the reference answer from public vet guidance, says so on the slides, and updates experiment card 3 to match.
 
 **What Demo Day needs from the build** (Maker Day 4 rubric):
 - **Product:** a working product, not a mockup, and the part we built ourselves has to matter. For us that's step 7, real PetSense AI using Biscuit's history. It must run live, with a recorded backup in case it fails.
@@ -140,7 +141,7 @@ No day-by-day timeline. Build in this order, because each step unblocks the next
 
 Slide notes for the Demo Day story (professor's Maker Day 3 feedback) live in [DEMO_DAY.md](DEMO_DAY.md).
 
-**Roles:** Yerin builds the prototype and test screens. Jessie and Charlotte own recruiting, running the experiments, vet review of the scenarios, and the slides.
+**Roles:** Yerin builds the prototype and test screens. Jessie and Charlotte own recruiting, running the experiments, and the slides.
 
 
 ## Verification

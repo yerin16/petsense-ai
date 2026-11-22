@@ -20,6 +20,8 @@ The professor's Maker Day 3 feedback: the wedge was clear, and the pivot based o
 | Safe red-flag escalation | Deliberately not tested before Demo Day: a future safety gate that needs a clinician-reviewed test set. Hard-coded red-flag rules are built in step 7, but we make no safety claim |
 | Urgency over wellness | Covered by the "Should I wait?" pitch and the Home screen leading with new symptoms; the adoption retest uses new-symptom scenarios |
 
+**Be upfront about the trust experiment:** the scenario and its reference answer were set by the team using public vet guidance (cite the source), not reviewed by a vet. Update experiment card 3, which still says the scenario is vet-reviewed.
+
 ## Maker Day 4 rubric checklist (Fri Dec 4, slides PDF due 5:00 PM)
 
 Cover all five in 7 minutes:

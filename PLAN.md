@@ -139,7 +139,7 @@ No day-by-day timeline. Build in this order, because each step unblocks the next
 - **Evidence:** results must be new since Maker Day 3 and measure behavior against thresholds set in advance (first click, seconds to save, action chosen). So the test screens (steps 3–6) come first, early enough for the team to run 8 people each.
 - **Within 7 minutes:** keep the live demo to about 2 minutes, with a fixed script (step 8).
 
-Slide notes for the Demo Day story (professor's Maker Day 3 feedback) live in [DEMO_DAY.md](DEMO_DAY.md).
+Team guides: [EXPERIMENT_GUIDE.md](EXPERIMENT_GUIDE.md) (running the experiments) and [DEMO.md](DEMO.md) (Demo Day checklist and demo script).
 
 **Roles:** Yerin builds the prototype and test screens. Jessie and Charlotte own recruiting, running the experiments, and the slides.
 

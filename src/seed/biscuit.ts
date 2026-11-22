@@ -4,6 +4,7 @@
 
 import { dayISO } from './dates';
 import type { CheckIn, Level, Med, Pet, Reminder, TimelineEvent } from './types';
+import type { PetSenseRecord } from '@/src/petsense/types';
 
 export const pet: Pet = {
   name: 'Biscuit',
@@ -216,5 +217,6 @@ export function seedState() {
     timeline: timeline.map((e) => ({ ...e })),
     reminders: reminders.map((r) => ({ ...r })),
     snoozed: [] as string[],
+    asks: [] as PetSenseRecord[],
   };
 }

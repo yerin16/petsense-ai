@@ -46,6 +46,28 @@ export default function Home() {
         />
       </View>
 
+      {/* Should I wait? (PetSense) */}
+      <Pressable accessibilityRole="button" onPress={() => router.push('/symptom')}>
+        <LinearGradient colors={gradients.primary} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.hero}>
+          <View style={styles.row}>
+            <View style={styles.heroIcon}>
+              <Icon name="star-four-points-outline" color={colors.white} size={22} />
+            </View>
+            <View style={{ flex: 1, gap: 2 }}>
+              <T v="h3" style={{ color: colors.white, fontSize: 16 }}>
+                Something new? Should I wait?
+              </T>
+              <T v="caption" style={{ color: colors.onDarkMuted }}>
+                {flagged.length
+                  ? `Lately: ${flagged.map((f) => f.label.toLowerCase()).join(', ')}. PetSense checks it against ${pet.name}’s history.`
+                  : `PetSense checks it against ${pet.name}’s history: watch, call the vet, or go now.`}
+              </T>
+            </View>
+            <Icon name="chevron-right" color={colors.white} />
+          </View>
+        </LinearGradient>
+      </Pressable>
+
       {/* Due soon */}
       {reminder ? (
         <LinearGradient colors={gradients.hero} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.hero}>
@@ -105,24 +127,6 @@ export default function Home() {
         />
       </Card>
 
-      {/* PetSense entry */}
-      <Pressable onPress={() => router.push('/petsense')}>
-        <Card style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <View style={styles.senseIcon}>
-            <Icon name="star-four-points-outline" color={colors.violet} size={22} />
-          </View>
-          <View style={{ flex: 1, gap: 2 }}>
-            <T v="h3">Something seem off?</T>
-            <T v="body">
-              {flagged.length
-                ? `PetSense noticed: ${flagged.map((f) => f.label.toLowerCase()).join(', ')}. Ask whether to watch, call the vet, or go now.`
-                : 'PetSense checks it against his history and tells you: watch, call the vet, or go now.'}
-            </T>
-          </View>
-          <Icon name="chevron-right" color={colors.muted} />
-        </Card>
-      </Pressable>
-
       {/* Today's meds */}
       <Card>
         <View style={styles.row}>
@@ -166,9 +170,14 @@ export default function Home() {
         ) : null}
       </Card>
 
-      <Pressable onPress={resetDemo} style={{ alignSelf: 'center', padding: 8 }}>
-        <T v="caption">Reset demo data</T>
-      </Pressable>
+      <View style={[styles.row, { justifyContent: 'center', gap: 20 }]}>
+        <Pressable onPress={resetDemo} style={{ padding: 8 }}>
+          <T v="caption">Reset demo data</T>
+        </Pressable>
+        <Pressable onPress={() => router.push('/presenter')} style={{ padding: 8 }}>
+          <T v="caption">Presenter mode</T>
+        </Pressable>
+      </View>
     </Screen>
   );
 }
@@ -186,7 +195,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   dot: { width: 8, height: 8, borderRadius: 4 },
-  senseIcon: { width: 44, height: 44, borderRadius: 22, backgroundColor: colors.lilac, alignItems: 'center', justifyContent: 'center' },
   check: { width: 28, height: 28, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
   checkOn: { backgroundColor: colors.green },
   checkOff: { backgroundColor: colors.white, borderWidth: 2, borderColor: colors.lilacLine },

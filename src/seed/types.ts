@@ -41,7 +41,7 @@ export type Med = {
   protocol?: { title: string; steps: string[]; callVetIf: string[] };
 };
 
-export type EventKind = 'visit' | 'vaccine' | 'med' | 'flare' | 'lab' | 'weight';
+export type EventKind = 'visit' | 'vaccine' | 'med' | 'flare' | 'lab' | 'weight' | 'symptom';
 
 export type TimelineEvent = {
   id: string;

@@ -14,6 +14,7 @@ const TAG_LABEL: Record<EventKind, string> = {
   flare: 'Flare-up',
   lab: 'Lab',
   weight: 'Weight',
+  symptom: 'New symptom',
 };
 
 const FILTERS: { key: 'all' | EventKind; label: string }[] = [
@@ -68,7 +69,7 @@ export default function Timeline() {
                   {upcoming ? (
                     <Chip label={`Due ${relDue(e.date)}`} tone="white" />
                   ) : (
-                    e.tags.map((t) => <Chip key={t} label={TAG_LABEL[t]} tone={t === 'flare' ? 'amber' : 'lilac'} />)
+                    e.tags.map((t) => <Chip key={t} label={TAG_LABEL[t]} tone={t === 'flare' || t === 'symptom' ? 'amber' : 'lilac'} />)
                   )}
                 </View>
               </Card>

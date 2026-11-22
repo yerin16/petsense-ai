@@ -50,7 +50,7 @@ See [PLAN.md](PLAN.md) for details. Demo Day is Dec 4.
 2. ✅ Rename to PetSense AI + web link (EAS Hosting)
 3. ✅ Results logging to a Google Sheet for experiments
 4. ✅ Adoption choice screen with the "Should I wait?" intro (experiment 1 retest)
-5. Symptom log + save flow, A (text-first) / B (tap-to-pick), auto-timed (experiment 2)
+5. ✅ Symptom log + save flow, A (text-first) / B (tap-to-pick), auto-timed (experiment 2)
 6. Trust screens: personalized vs. generic guidance (experiment 3)
 7. Real PetSense AI: triage, red-flag rules, demo mode, presenter passcode
 8. Polish + demo script + backup video

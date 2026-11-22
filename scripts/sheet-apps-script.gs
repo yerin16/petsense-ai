@@ -10,8 +10,7 @@
  *
  * The app's server sends rows here. Rows land in a "Results" tab that this script creates.
  * Each row has an id, so a resend after a network error never creates a duplicate.
- * "attempt" counts how many times this participant has done this experiment (1 = first try).
- * Only attempt 1 counts in the results; later attempts are redos after a technical problem.
+ * If a participant redoes a task, only their earliest row (by received_at) counts.
  * If you edit this script later, use Deploy → Manage deployments → edit → New version,
  * so the URL stays the same.
  */
@@ -22,7 +21,6 @@ const HEADERS = [
   'participant',
   'experiment',
   'version',
-  'attempt',
   'choice',
   'seconds',
   'correct',
@@ -44,27 +42,18 @@ function doPost(e) {
     const rows = Array.isArray(data.rows) ? data.rows : [];
     const sheet = getSheet_();
 
+    const idCol = HEADERS.indexOf('id') + 1;
     const last = sheet.getLastRow();
-    const existing = last > 1 ? sheet.getRange(2, 1, last - 1, HEADERS.length).getValues() : [];
-    const col = (name) => HEADERS.indexOf(name);
-    const seen = new Set(existing.map((r) => String(r[col('id')])));
-    const attempts = {};
-    existing.forEach((r) => {
-      const key = r[col('participant')] + '|' + r[col('experiment')];
-      attempts[key] = (attempts[key] || 0) + 1;
-    });
+    const seen = new Set(last > 1 ? sheet.getRange(2, idCol, last - 1, 1).getValues().map((r) => String(r[0])) : []);
 
     let added = 0;
     rows.forEach((r) => {
       if (!r || !r.id || seen.has(String(r.id))) return;
-      const key = safe_(r.participant) + '|' + safe_(r.experiment);
-      attempts[key] = (attempts[key] || 0) + 1;
       sheet.appendRow([
         new Date(),
         safe_(r.participant),
         safe_(r.experiment),
         safe_(r.version),
-        attempts[key],
         safe_(r.choice),
         typeof r.seconds === 'number' ? r.seconds : '',
         typeof r.correct === 'boolean' ? r.correct : '',

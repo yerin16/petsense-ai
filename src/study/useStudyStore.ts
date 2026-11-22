@@ -13,7 +13,7 @@ type StudyState = {
   setParticipant: (code: string | null) => void;
   enqueue: (row: ResultRow) => void;
   markSent: (ids: string[]) => void;
-  /** Team "Redo" button: lets this participant take the task again (the Sheet marks it attempt 2+). */
+  /** Team "Redo" button: lets this participant take the task again (only their earliest row counts). */
   reopen: (code: string, experiment: Experiment) => void;
 };
 

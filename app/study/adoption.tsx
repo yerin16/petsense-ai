@@ -1,5 +1,5 @@
 import { Redirect, router } from 'expo-router';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { versionFor } from '@/src/study/assign';
@@ -17,7 +17,7 @@ const backToTasks = () => (router.canGoBack() ? router.back() : router.replace('
 export default function AdoptionTask() {
   const { participant, done } = useStudyStore();
   const [phase, setPhase] = useState<Phase>('intro');
-  const [picked, setPicked] = useState<AdoptionChoice | null>(null);
+  const picked = useRef(false); // only the first click counts, even on a fast double tap
   const introClock = useStopwatch({ autoStart: true });
   const choiceClock = useStopwatch();
 
@@ -42,8 +42,8 @@ export default function AdoptionTask() {
   }
 
   const choose = (choice: AdoptionChoice) => {
-    if (picked) return; // only the first click counts
-    setPicked(choice);
+    if (picked.current) return;
+    picked.current = true;
     logResult({
       experiment: 'adoption',
       version,

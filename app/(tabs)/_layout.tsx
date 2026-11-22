@@ -9,7 +9,6 @@ export default function TabLayout() {
       <Tabs.Screen name="timeline" />
       <Tabs.Screen name="petsense" />
       <Tabs.Screen name="meds" />
-      <Tabs.Screen name="share" />
     </Tabs>
   );
 }

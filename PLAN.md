@@ -29,7 +29,7 @@
 | 1 | Create profile | Add **conditions**, current meds, primary vet, and a **"Biscuit's normal" baseline** (appetite, energy, stool, mobility, water) |
 | 2 | Import records | Keep. Show extracted conditions/labs as well as vaccines |
 | 3 | Home | Lead with **"Something new? Should I wait?"** (opens the symptom log → PetSense), then the "Lately vs. normal" card and today's meds |
-| **NEW** | **Symptom log** | Record a new symptom (text-first; a second layout for the A/B test). Saves to the timeline and feeds PetSense. Must be finishable in ≤ 2 min without help (experiment 2) |
+| **NEW** | **Symptom log** | Record a new symptom (A: text-first / B: tap-to-pick layout for the A/B test). Saves to the timeline and feeds PetSense. Must be finishable in ≤ 2 min without help (experiment 2) |
 | **NEW** | **Study screens** | Standalone experiment flows at `/study/*` (adoption, logging, trust) with A/B assignment, auto-timing, and results sent to a Google Sheet |
 | **NEW** | **Daily check-in** | 30-second log: 5 taps (appetite/energy/stool/mobility/vomiting) + optional note/photo. Builds the baseline and tests depth of use |
 | **NEW** | **PetSense chat** | Owner describes the concern → PetSense asks 1–3 follow-ups → returns a **triage card** |
@@ -37,7 +37,7 @@
 | 4 | Health timeline → **Trends** | Symptom chart over time, overlaid with meds/visits/flare-ups |
 | **NEW** | **Vet visit prep** | Auto-generated "since last visit" summary (symptoms, trends, med adherence, owner questions) → share link/PDF. Merges with the old screen 9 |
 | 6 | Meds | Keep. Add **flare-up protocol** (vet-provided steps when GI acts up) |
-| 7–8 | Share / Sitter | Keep, but lower priority. Sitter view gains "what's normal / red flags for Biscuit" |
+| 7–8 | Share / Sitter | **Cut** (after Maker Day 3). The Share tab is removed from the app |
 | 5, 10 | Vaccine detail, reminder | Keep as is |
 | ~~NEW~~ | ~~Premium paywall~~ | Cut before Demo Day (not a top risk) |
 
@@ -64,7 +64,7 @@ Why:
 What *not* to build: no auth, no real backend database, no real OCR, no real vet integrations. Keep it a **high-fidelity prototype in code** with seeded data.
 
 ### Stack
-- **Expo SDK (latest) + TypeScript + Expo Router** (file-based tabs: Home, Trends, PetSense, Meds, Share)
+- **Expo SDK (latest) + TypeScript + Expo Router** (file-based tabs: Home, Timeline, PetSense, Meds)
 - **State:** Zustand + AsyncStorage persistence. Seed with Biscuit's 60-day history so trends look real on first launch
 - **Charts:** victory-native or react-native-gifted-charts
 - **Styling:** tokens pulled from the Figma variables (purple gradient, glass cards, Poppins-like type), via `get_variable_defs`
@@ -76,7 +76,7 @@ What *not* to build: no auth, no real backend database, no real OCR, no real vet
 - **Public-link safety: presenter passcode.**
   - By default, everyone with the link gets **Demo mode**: canned PetSense answers for a few sample concerns, at $0 cost.
   - **Settings → Presenter mode** asks for a **team passcode** once per device. The phone remembers it and sends it with each PetSense request.
-  - The **server checks the passcode** against `PETSENSE_PASSCODE`, which is stored with `ANTHROPIC_API_KEY` as EAS Hosting secrets. Only on a match does it call Claude. Otherwise it returns the demo answer. The passcode is never in the app code, because anyone can read web app code in browser dev tools.
+  - The **server checks the passcode** against `PETSENSE_PASSCODE`, which is stored with `ANTHROPIC_API_KEY` as EAS environment variables with "sensitive" visibility (EAS Hosting can't deploy "secret" ones; after changing one, re-export and redeploy). Only on a match does it call Claude. Otherwise it returns the demo answer. The passcode is never in the app code, because anyone can read web app code in browser dev tools.
   - Share the passcode only with people who should get real AI (e.g. a teammate demoing). The experiments use scripted screens and don't need it.
   - Backstop: a monthly spend limit in the Anthropic Console (e.g. $10).
 
@@ -105,7 +105,7 @@ src/ui/                     tokens + Card, Chip, Button, Field (mirroring Figma 
 
 ## Part 3: Build order (after Maker Day 3)
 
-No day-by-day timeline. Build in this order, because each step unblocks the next.
+No day-by-day timeline. Build in this order, because each step unblocks the next. The test screens follow the same chain we present: **Will they open it? → Can they give it data? → Will they trust and act on the answer?**
 
 **Fixed dates**
 - **Test screens ready early enough** for Jessie and Charlotte to run 8 people per experiment before Demo Day. Demo Day needs results that are new since Maker Day 3.
@@ -115,14 +115,16 @@ No day-by-day timeline. Build in this order, because each step unblocks the next
 |---|---|---|---|
 | 1 | **Foundation**: Expo + Router, Figma tokens, components, Biscuit seed data, Home / Timeline / Meds, daily check-in | Base app | ✅ Done |
 | 2 | **Rename to PetSense AI + web link**: live at **https://petsense-ai.expo.app** (EAS project `@_yerin16/petsense-ai`) | Participants are remote, so every experiment needs a link | ✅ Done |
-| 3 | **Results logging**: study screens send participant code, version (A/B), choice and time to a Google Sheet | All three experiments | |
-| 4 | **Symptom log + save flow** in two versions (A: text-first / B: second layout), auto-timed from start to "Saved ✓" | **Experiment 2 (logging ≤ 2 min, pass ≥ 6/8)**, blocked until this works | |
-| 5 | **Adoption choice screen**: new "Should I wait?" intro → scenario (A: appetite / B: activity, random) → 4 equal buttons (PetSense AI / Google / vet / wait and monitor), records the first click | **Experiment 1 retest (pass ≥ 5/8)** | |
+| 3 | **Results logging**: study screens send participant code, version (A/B), choice and time to a Google Sheet. `/study?code=P03` start page, balanced A/B table for P01–P08, rows saved on the device until the Sheet confirms them | All three experiments | ✅ Built (needs the Sheet URL) |
+| 4 | **Adoption choice screen**: new "Should I wait?" intro → scenario (A: appetite / B: activity, random) → 4 equal buttons (PetSense AI / Google / vet / wait and monitor), records the first click. Button order is shuffled per participant; the Sheet numbers attempts | **Experiment 1 retest (pass ≥ 5/8)**. The most existential test and the simplest screen, so it goes first and the team can start running people sooner | ✅ Built |
+| 5 | **Symptom log + save flow** in two versions (A: text-first / B: tap-to-pick layout instead of photo/voice, which the card allows), auto-timed from start to "Saved ✓" | **Experiment 2 (logging ≤ 2 min, pass ≥ 6/8)**, blocked until this works | |
 | 6 | **Trust screens**: fixed scenario + scripted guidance (A: personalized with the dog's history / B: generic), then pick monitor / call vet / urgent care | **Experiment 3 (pass ≥ 6/8 safe, aligned choices)**. The team gets the scenario vet-reviewed first | |
 | 7 | **Real PetSense AI**: symptom → triage using the dog's history, red-flag rules, demo mode, presenter passcode. Home leads with "Should I wait?" | **Demo Day:** "the part we built that matters" | |
 | 8 | **Polish + demo**: demo script, recorded backup video, rehearsal | Demo Day | |
 
-**Removed from the old plan:** the 1-week owner diary test and its usage tracking (replaced by the three experiments), the daily-tracking milestone (onboarding baseline + trends), the pricing screen, vet-visit prep, and the sitter view.
+**A/B in every experiment (required):** the team's Maker Day 3 experiment cards give each test two randomized versions, 4 people each, and the class's Rule 2 requires a control and a test. Pass/fail uses the overall score out of 8. A vs. B is reported descriptively only, with no claims that one version is better. Note on the logging card that version B is the tap-to-pick layout before recruiting.
+
+**Removed from the old plan:** the 1-week owner diary test and its usage tracking (replaced by the three experiments), the daily-tracking milestone (onboarding baseline + trends), the pricing screen, vet-visit prep, the sitter view, and the Share tab.
 
 **Decisions (confirmed Nov 21):**
 - App name: **PetSense AI** (rename the app, title and web link to match the deck). Build step 2 includes the rename.
@@ -130,7 +132,16 @@ No day-by-day timeline. Build in this order, because each step unblocks the next
 - Experiment results: **auto-sent to a Google Sheet**.
 - PetSense for Demo Day: **real AI + demo mode**, not scripted only ("a mockup is not a build").
 
+**What Demo Day needs from the build** (Maker Day 4 rubric):
+- **Product:** a working product, not a mockup, and the part we built ourselves has to matter. For us that's step 7, real PetSense AI using Biscuit's history. It must run live, with a recorded backup in case it fails.
+- **Demo as a customer uses it:** one connected flow. Home → "Something new? Should I wait?" → log the symptom (the step 5 form, reused) → PetSense triage card → saved to the timeline.
+- **Evidence:** results must be new since Maker Day 3 and measure behavior against thresholds set in advance (first click, seconds to save, action chosen). So the test screens (steps 3–6) come first, early enough for the team to run 8 people each.
+- **Within 7 minutes:** keep the live demo to about 2 minutes, with a fixed script (step 8).
+
+Slide notes for the Demo Day story (professor's Maker Day 3 feedback) live in [DEMO_DAY.md](DEMO_DAY.md).
+
 **Roles:** Yerin builds the prototype and test screens. Jessie and Charlotte own recruiting, running the experiments, vet review of the scenarios, and the slides.
+
 
 ## Verification
 - `npx expo start`: run on the iOS simulator (simulator MCP) and on web, and click through every screen against the Figma frames.

@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Card, Chip, Icon, PageHeader, Screen, T } from '@/src/ui/components';
 import { colors } from '@/src/ui/theme';
 
-// Placeholder until milestone 3 (red-flag rules + Claude-powered triage).
+// Placeholder until build step 7 (red-flag rules + Claude-powered triage).
 export default function PetSense() {
   return (
     <Screen>
@@ -13,7 +13,7 @@ export default function PetSense() {
           style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: colors.lilac, alignItems: 'center', justifyContent: 'center' }}>
           <Icon name="star-four-points-outline" size={28} color={colors.violet} />
         </View>
-        <T v="h3">Coming in milestone 3</T>
+        <T v="h3">Coming soon</T>
         <T v="body" style={{ textAlign: 'center' }}>
           Describe what you’re seeing. PetSense compares it with Biscuit’s check-ins, conditions and meds, then gives one
           of three answers.

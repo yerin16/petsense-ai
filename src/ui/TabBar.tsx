@@ -11,7 +11,6 @@ export const TAB_META: Record<string, { label: string; icon: IconName }> = {
   timeline: { label: 'Timeline', icon: 'clock-outline' },
   petsense: { label: 'PetSense', icon: 'star-four-points-outline' },
   meds: { label: 'Meds', icon: 'pill' },
-  share: { label: 'Share', icon: 'share-variant-outline' },
 };
 
 /** Floating pill tab bar from the Figma prototype: the active tab is a white pill with its label. */

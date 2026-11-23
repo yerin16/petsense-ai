@@ -50,21 +50,4 @@ With live AI, wording changes a little each time, and answer 2 might also say "c
 ## If something goes wrong
 
 - **No internet or the AI fails:** the app automatically shows prewritten answers, so keep going.
-- **The app won't load at all:** play the backup video.
-
-## Backup video shot list
-
-About 2 minutes, recorded from a phone screen, with a voice-over of the lines above. Before recording: tap **Reset demo data**, turn on **Presenter mode** (so answers say "PetSense AI"), and turn on Do Not Disturb. It's fine to record each shot separately and join the clips.
-
-| # | Shot | What's on screen | Say |
-|---|---|---|---|
-| 1 | **Home** (~10s) | Home, scroll slowly to "Lately vs. Biscuit's normal" | "This is Biscuit, 11, hip arthritis and a sensitive stomach. A 30-second daily check-in tells PetSense what's normal for him." |
-| 2 | **Should I wait?** (~5s) | Tap the gradient card at the top | "Something new comes up. Should I wait?" |
-| 3 | **🟢 Log it** (~15s) | Vomiting → 1, Ate less, Today, then Save. Stay on "Checking Biscuit's history…" | "Logging takes seconds." |
-| 4 | **🟢 Answer** (~25s) | "Monitor at home" banner, scroll slowly through why, what to do, when to call | "His last flare-up started the same way and settled with his vet's plan. It also tells you exactly when to stop waiting." |
-| 5 | **Timeline** (~10s) | Save to Biscuit's timeline, then Done. Open Timeline and show the "New symptom" entry | "It goes into his history for the vet." |
-| 6 | **🟡 Longer** (~20s) | Same symptoms but **2+ days ago**, then "Call your vet today" | "Same symptoms, but it's lasted longer than his plan covers, so call the vet today." |
-| 7 | **🔴 Emergency** (~20s) | Something else, Today, note *"his belly looks swollen and he keeps retching"*, then "Go to emergency now" | "Emergency signs are checked by fixed rules before any AI runs." |
-| 8 | **Close** (~10s) | PetSense tab, Recent answers showing all three levels | "Guidance that uses the dog's own history and tells owners when to stop waiting." |
-
-Scroll slowly so the text is readable, and keep a copy of the video on the presenting laptop in case the Wi-Fi is down.
+- **The app won't load at all:** switch to a phone hotspot or another teammate's device and reload the link.

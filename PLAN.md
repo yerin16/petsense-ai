@@ -120,7 +120,7 @@ No day-by-day timeline. Build in this order, because each step unblocks the next
 | 5 | **Symptom log + save flow** in two versions (A: text-first / B: tap-to-pick layout instead of photo/voice, which the card allows), auto-timed from start to "Saved ✓". Same made-up symptom for everyone (Biscuit vomited once, ate less today); accuracy is checked automatically (B exactly, A by keywords, so the team reads A rows); "I can't finish this" logs a give-up. The form is reusable for step 7 | **Experiment 2 (logging ≤ 2 min, pass ≥ 6/8)**, blocked until this works | ✅ Built |
 | 6 | **Trust screens**: fixed scenario + scripted guidance (A: personalized with the dog's history / B: generic), then pick monitor / call vet / urgent care | **Experiment 3 (pass ≥ 6/8 safe, aligned choices)**. No vet review: use a clear-cut mild scenario whose safe answer (monitor at home) matches published "when to call your vet" guidance, and cite that source. Built with VCA's "Diarrhea in Dogs" (updated Jul 2026) as the source: soft stool since this morning, eating and playful, safe answer = monitor; decision time is logged | ✅ Built |
 | 7 | **Real PetSense AI**: symptom → triage using the dog's history, red-flag rules, demo mode, presenter passcode. Home leads with "Should I wait?" | **Demo Day:** "the part we built that matters" | ✅ Built (demo mode live; real AI needs ANTHROPIC_API_KEY + PETSENSE_PASSCODE on EAS) |
-| 8 | **Polish + demo**: demo script, recorded backup video, rehearsal | Demo Day | |
+| 8 | **Polish + demo**: demo script, rehearsal | Demo Day | |
 
 **A/B in every experiment (required):** the team's Maker Day 3 experiment cards give each test two randomized versions, 4 people each, and the class's Rule 2 requires a control and a test. Pass/fail uses the overall score out of 8. A vs. B is reported descriptively only, with no claims that one version is better. Note on the logging card that version B is the tap-to-pick layout before recruiting.
 
@@ -134,7 +134,7 @@ No day-by-day timeline. Build in this order, because each step unblocks the next
 - Trust experiment: **no vet review**. The team sets the reference answer from public vet guidance, says so on the slides, and updates experiment card 3 to match.
 
 **What Demo Day needs from the build** (Maker Day 4 rubric):
-- **Product:** a working product, not a mockup, and the part we built ourselves has to matter. For us that's step 7, real PetSense AI using Biscuit's history. It must run live, with a recorded backup in case it fails.
+- **Product:** a working product, not a mockup, and the part we built ourselves has to matter. For us that's step 7, real PetSense AI using Biscuit's history. It must run live.
 - **Demo as a customer uses it:** one connected flow. Home → "Something new? Should I wait?" → log the symptom (the step 5 form, reused) → PetSense triage card → saved to the timeline.
 - **Evidence:** results must be new since Maker Day 3 and measure behavior against thresholds set in advance (first click, seconds to save, action chosen). So the test screens (steps 3–6) come first, early enough for the team to run 8 people each.
 - **Within 7 minutes:** keep the live demo to about 2 minutes, with a fixed script (step 8).
@@ -150,4 +150,4 @@ Team guides: [EXPERIMENT_GUIDE.md](EXPERIMENT_GUIDE.md) (running the experiments
 - Fresh-install test: the seeded demo works offline except for PetSense, and "Reset demo" restores it.
 - Web link test: open the deployed link on a phone (Safari and Chrome) and a laptop, add it to the home screen, and confirm the data persists after closing and reopening. Demo mode answers PetSense without an API key. With no passcode or a wrong one, the server returns demo answers and makes no Claude call. With the right passcode, it gives real answers.
 - Study screens: run each `/study/*` flow on a phone end to end in both A and B versions. Confirm the timer stops at "Saved ✓" and that a row (code, version, choice, seconds) lands in the Google Sheet.
-- Demo Day deck: experiment results against the pre-set thresholds, the "Should I wait?" pitch, and the live PetSense demo with a backup video.
+- Demo Day deck: experiment results against the pre-set thresholds, the "Should I wait?" pitch, and the live PetSense demo.

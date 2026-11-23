@@ -32,17 +32,15 @@ PetSense is a class prototype. It is not a vet, and its safety rules are not cli
 
 Three A/B experiments with 8 dog owners each, run at `/study?code=P01` (separate from the main app). Results go straight to a Google Sheet.
 
-<img src="docs/screenshots/7-study.jpg" width="240" alt="Study page" align="right">
-
 | # | Question | A vs. B | Pass if |
 |---|---|---|---|
 | 1 | Will owners choose PetSense first? | Appetite vs. activity scenario | 5 of 8 |
 | 2 | Can they log a symptom in ≤ 2 min? | Text-first vs. tap-to-pick form | 6 of 8 |
 | 3 | Do they trust the advice and act safely? | Personalized vs. generic guidance | 6 of 8 |
 
-How to run them: [EXPERIMENT_GUIDE.md](EXPERIMENT_GUIDE.md). Demo Day checklist and script: [DEMO.md](DEMO.md). Full plan: [PLAN.md](PLAN.md).
+<p align="center"><img src="docs/screenshots/7-study.jpg" width="240" alt="Study page"><br><sub>The study page participants open</sub></p>
 
-<br clear="right">
+How to run them: [EXPERIMENT_GUIDE.md](EXPERIMENT_GUIDE.md). Demo Day checklist and script: [DEMO.md](DEMO.md). Full plan: [PLAN.md](PLAN.md).
 
 ## Tech
 

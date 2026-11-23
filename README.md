@@ -1,70 +1,97 @@
 # PetSense AI
 
-Interactive prototype of **PetSense AI** for **owners of senior and chronic-condition dogs**. When a new symptom appears, it answers "Should I wait?" using the dog's own health history. It also includes daily check-ins, meds, a health timeline, and experiment screens.
+**"Should I wait?"** When a senior or chronically ill dog shows a new symptom, owners are stuck between overreacting and waiting too long. PetSense AI compares the new symptom with the dog's own health history and gives one clear next step: **monitor at home, call your vet today, or go to emergency now**, plus exactly when to stop waiting.
 
-Demo persona: **Biscuit**, an 11-year-old Golden Retriever with hip osteoarthritis and recurring GI flare-ups. The app ships with 60 days of seeded history, all relative to today. Use **Reset demo data** at the bottom of Home before each crit.
+**Try it:** **https://petsense-ai.expo.app** works on any phone or laptop browser, with nothing to install.
 
-## Live link
+Built for TECH 5900 Product Studio by Team 805 (Jessie, Charlotte, Yerin).
 
-**https://petsense-ai.expo.app** works on any phone or laptop browser. Use "Add to Home Screen" for an app-like feel.
+## Screens
 
-To redeploy after changes:
+| Home | Should I wait? | PetSense's answer |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/1-home.jpg" width="240" alt="Home screen"> | <img src="docs/screenshots/2-should-i-wait.jpg" width="240" alt="Symptom form"> | <img src="docs/screenshots/3-answer.jpg" width="240" alt="Triage answer"> |
+| Starts with "Something new? Should I wait?", recent changes vs. his normal, and today's meds | Log a new symptom in about 30 seconds | One level, why (from his history), and when to stop waiting |
+| **PetSense tab** | **Health timeline** | **Meds** |
+| <img src="docs/screenshots/4-petsense.jpg" width="240" alt="PetSense tab"> | <img src="docs/screenshots/5-timeline.jpg" width="240" alt="Health timeline"> | <img src="docs/screenshots/6-meds.jpg" width="240" alt="Medications"> |
+| Past answers and how PetSense decides | Visits, flare-ups, labs and logged symptoms | Doses, refills and the vet's flare-up plan |
 
-```bash
-npx expo export --platform web && npx eas-cli@latest deploy --prod
-```
+Demo persona: **Biscuit**, an 11-year-old Golden Retriever with hip arthritis and a sensitive stomach, with 60 days of check-ins. Tap **Reset demo data** at the bottom of Home before a demo.
+
+## How PetSense decides
+
+1. **Emergency rules run first.** A swollen belly with retching, collapse, breathing trouble, poison, vomiting blood or not being able to pee goes straight to "Go to emergency now", without any AI.
+2. **Otherwise it uses the dog's history.** The server sends Claude (Opus 5.5) the dog's profile, normal baseline, meds, the vet's flare-up plan, recent check-ins and timeline, and gets back a structured answer.
+3. **Guardrails.** No diagnosis, no medicine or dose advice, only facts from the record, and the more cautious level when unsure.
+
+**Demo mode:** on the public link, PetSense gives prewritten answers for free. Real AI answers only run on a device where the team passcode was entered in **Presenter mode** (bottom of Home). If the AI call fails, it falls back to the prewritten answer.
+
+PetSense is a class prototype. It is not a vet, and its safety rules are not clinically validated.
+
+## Experiments
+
+Three A/B experiments with 8 dog owners each, run at `/study?code=P01` (separate from the main app). Results go straight to a Google Sheet.
+
+<img src="docs/screenshots/7-study.jpg" width="240" alt="Study page" align="right">
+
+| # | Question | A vs. B | Pass if |
+|---|---|---|---|
+| 1 | Will owners choose PetSense first? | Appetite vs. activity scenario | 5 of 8 |
+| 2 | Can they log a symptom in ≤ 2 min? | Text-first vs. tap-to-pick form | 6 of 8 |
+| 3 | Do they trust the advice and act safely? | Personalized vs. generic guidance | 6 of 8 |
+
+How to run them: [EXPERIMENT_GUIDE.md](EXPERIMENT_GUIDE.md). Demo Day checklist and script: [DEMO.md](DEMO.md). Full plan: [PLAN.md](PLAN.md).
+
+<br clear="right">
+
+## Tech
+
+- **Expo SDK 58** + React Native + TypeScript, with **Expo Router** (file-based screens)
+- **Zustand**: all pet data stays on the device (no database, no accounts)
+- **Expo API routes** on **EAS Hosting**: `/api/petsense` (Claude via `@anthropic-ai/sdk`) and `/api/log` (to the Google Sheet). Keys stay on the server.
+- Design tokens and the puppy art come from our original Figma prototype.
 
 ## Run locally
 
 ```bash
 npm install
-npx expo start          # press w for web, i for iOS simulator, or scan the QR code with Expo Go
+npx expo start   # press w for web, or scan the QR code with Expo Go
 ```
 
-## Experiment results (Google Sheet)
+Without any settings, PetSense uses demo answers and experiment results stay queued on the device. To connect them, create a gitignored `.env.local`:
 
-The server reads the Sheet's Apps Script URL from `STUDY_SHEET_URL`:
+```bash
+STUDY_SHEET_URL=https://script.google.com/macros/s/.../exec   # Google Sheet (setup in scripts/sheet-apps-script.gs)
+ANTHROPIC_API_KEY=...                                         # real PetSense AI
+PETSENSE_PASSCODE=...                                         # team passcode for Presenter mode
+```
 
-- Local: put `STUDY_SHEET_URL=https://script.google.com/macros/s/.../exec` in `.env.local` (gitignored).
-- Live link: `npx eas-cli@latest env:set --name STUDY_SHEET_URL --value <url> --environment production --visibility sensitive`, then `npx expo export --platform web && npx eas-cli@latest deploy --prod --environment production`.
+## Deploy
 
-## PetSense AI (real AI)
-
-Everyone with the link gets prewritten demo answers. Real Claude answers need two server-side variables, then a redeploy. Leave out `--value` so the CLI prompts for it, which keeps the key out of your shell history:
+The live link reads the same three variables from EAS (set once; the CLI prompts for the value so secrets stay out of your shell history):
 
 ```bash
 npx eas-cli@latest env:set --name ANTHROPIC_API_KEY --environment production --visibility sensitive
-npx eas-cli@latest env:set --name PETSENSE_PASSCODE --environment production --visibility sensitive
+```
+
+Repeat with `PETSENSE_PASSCODE` and `STUDY_SHEET_URL`. Then export and deploy. The live link can take a few minutes to switch to the new version.
+
+```bash
 npx expo export --platform web && npx eas-cli@latest deploy --prod --environment production
 ```
 
-Then open **Presenter mode** (bottom of Home) on the demo device and enter the passcode. Optional: `PETSENSE_MODEL` (default `claude-opus-5-5`).
-
-## Structure
+## Project structure
 
 | Path | What |
 |---|---|
-| `app/(tabs)/` | Home, Timeline, PetSense, Meds tabs |
-| `app/study/` | Experiment screens. Send each participant `/study?code=P03` |
-| `app/api/log+api.ts` | Forwards experiment results to the Google Sheet |
-| `app/api/petsense+api.ts` | PetSense: red-flag rules → demo answer or Claude (with passcode) |
-| `src/petsense/` | Red flags, demo answers, prompt, dog-history summary, presenter passcode |
-| `src/study/` | A/B assignment, result logging, offline queue |
-| `scripts/sheet-apps-script.gs` | Paste into the Sheet's Apps Script (setup steps inside) |
-| `app/checkin.tsx` | Daily check-in sheet |
-| `src/ui/` | Design tokens (from Figma) + shared components + pill tab bar |
-| `src/seed/` | Biscuit's demo data and date helpers |
-| `src/store/` | Zustand store (persisted on device) + selectors |
-
-## Build order
-
-See [PLAN.md](PLAN.md) for details. Demo Day is Dec 4.
-
-1. ✅ Foundation: tokens, components, seed data, Home / Timeline / Meds, daily check-in
-2. ✅ Rename to PetSense AI + web link (EAS Hosting)
-3. ✅ Results logging to a Google Sheet for experiments
-4. ✅ Adoption choice screen with the "Should I wait?" intro (experiment 1 retest)
-5. ✅ Symptom log + save flow, A (text-first) / B (tap-to-pick), auto-timed (experiment 2)
-6. ✅ Trust screens: personalized vs. generic guidance (experiment 3)
-7. ✅ Real PetSense AI: triage, red-flag rules, demo mode, presenter passcode
-8. Polish + demo script + backup video
+| `app/(tabs)/` | Home, Timeline, PetSense and Meds tabs |
+| `app/symptom.tsx`, `app/triage/[id].tsx` | "Should I wait?" form and PetSense's answer |
+| `app/checkin.tsx`, `app/presenter.tsx` | Daily check-in, Presenter mode |
+| `app/study/` | Experiment screens (adoption, logging, trust) |
+| `app/api/` | Server routes: `petsense+api.ts`, `log+api.ts` |
+| `src/petsense/` | Emergency rules, demo answers, Claude prompt, dog-history summary |
+| `src/study/` | A/B assignment, result logging, offline queue, task content |
+| `src/symptom/` | Reusable symptom form |
+| `src/seed/`, `src/store/` | Biscuit's demo data, on-device store |
+| `src/ui/` | Design tokens, shared components, tab bar |
+| `scripts/sheet-apps-script.gs` | Google Sheet script (setup steps inside) |

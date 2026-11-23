@@ -138,9 +138,9 @@ export function Button({
 }
 
 /** Round gradient "+" button used in page headers. */
-export function RoundAction({ icon = 'plus', onPress }: { icon?: IconName; onPress?: () => void }) {
+export function RoundAction({ icon = 'plus', label, onPress }: { icon?: IconName; label?: string; onPress?: () => void }) {
   return (
-    <Pressable onPress={onPress}>
+    <Pressable accessibilityRole="button" accessibilityLabel={label} onPress={onPress}>
       <LinearGradient colors={gradients.primary} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.round}>
         <Icon name={icon} color={colors.white} size={22} />
       </LinearGradient>

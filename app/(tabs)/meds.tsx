@@ -5,7 +5,7 @@ import { dayISO, dayLetter, dayNum, fmtShort } from '@/src/seed/dates';
 import type { Med } from '@/src/seed/types';
 import { adherence, dueToday } from '@/src/store/selectors';
 import { usePetStore } from '@/src/store/usePetStore';
-import { Button, Card, Chip, Icon, PageHeader, RoundAction, Screen, T } from '@/src/ui/components';
+import { Button, Card, Chip, Icon, PageHeader, Screen, T } from '@/src/ui/components';
 import { colors, gradients, radius, shadow } from '@/src/ui/theme';
 
 function notify(title: string, msg: string) {
@@ -26,7 +26,6 @@ export default function Meds() {
       <PageHeader
         title="Medications"
         subtitle={`${active} active · ${weekDoses.filter(Boolean).length} of ${weekDoses.length} doses this week`}
-        action={<RoundAction />}
       />
 
       {/* Week strip */}

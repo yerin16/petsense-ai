@@ -156,7 +156,7 @@ function Segment<K extends string | number>({
             accessibilityState={{ selected: on }}
             onPress={() => onChange(o.key)}
             style={[styles.opt, on && styles.tileOn]}>
-            <T v="label" style={{ textAlign: 'center', color: on ? colors.white : colors.plum }}>
+            <T v="label" style={{ textAlign: 'center', fontSize: 13, color: on ? colors.white : colors.plum }}>
               {o.label}
             </T>
           </Pressable>
@@ -205,6 +205,7 @@ const styles = StyleSheet.create({
   opt: {
     flex: 1,
     paddingVertical: 11,
+    paddingHorizontal: 4,
     borderRadius: 14,
     borderWidth: 1.5,
     borderColor: colors.lilacLine,

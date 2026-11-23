@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
@@ -35,7 +36,7 @@ export default function Timeline() {
 
   return (
     <Screen>
-      <PageHeader title="Health timeline" action={<RoundAction />} />
+      <PageHeader title="Health timeline" action={<RoundAction label="Log a new symptom" onPress={() => router.push('/symptom')} />} />
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8 }} style={{ marginHorizontal: -24 }}>
         <View style={{ width: 16 }} />

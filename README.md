@@ -4,7 +4,7 @@
 
 **Try it:** **https://petsense-ai.expo.app** works on any phone or laptop browser, with nothing to install.
 
-Built for TECH 5900 Product Studio by Team 805 (Jessie, Charlotte, Yerin).
+Built for TECH 5900 Product Studio by Team 805.
 
 ## Screens
 

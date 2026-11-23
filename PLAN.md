@@ -108,7 +108,7 @@ src/ui/                     tokens + Card, Chip, Button, Field (mirroring Figma 
 No day-by-day timeline. Build in this order, because each step unblocks the next. The test screens follow the same chain we present: **Will they open it? → Can they give it data? → Will they trust and act on the answer?**
 
 **Fixed dates**
-- **Test screens ready early enough** for Jessie and Charlotte to run 8 people per experiment before Demo Day. Demo Day needs results that are new since Maker Day 3.
+- **Test screens ready early enough** for the team to run 8 people per experiment before Demo Day. Demo Day needs results that are new since Maker Day 3.
 - **Fri Dec 4, Demo Day** (7 min, counts double): working product live, slides PDF (Milestone 6) due 5:00 PM.
 
 | # | Build | Why / what it unblocks | Status |
@@ -141,7 +141,7 @@ No day-by-day timeline. Build in this order, because each step unblocks the next
 
 Team guides: [EXPERIMENT_GUIDE.md](EXPERIMENT_GUIDE.md) (running the experiments) and [DEMO.md](DEMO.md) (Demo Day checklist and demo script).
 
-**Roles:** Yerin builds the prototype and test screens. Jessie and Charlotte own recruiting, running the experiments, and the slides.
+**Roles:** one teammate builds the prototype and test screens. The other two own recruiting, running the experiments, and the slides.
 
 
 ## Verification
